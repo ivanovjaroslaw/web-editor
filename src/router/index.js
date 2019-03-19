@@ -1,7 +1,8 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import DashboardComponent from '../components/DashboardComponent';
-import DocumentComponent from '../components/DocumentComponent';
+import DashboardComponent from '../components/dashboard.component';
+import DocumentComponent from '../components/document.component';
+import AuthService from '../services/auth.service';
 
 Vue.use(VueRouter);
 
@@ -11,5 +12,17 @@ const routes = [
 ];
 
 const router = new VueRouter({ routes });
+
+router.beforeEach((to, from, next) => {
+  const authService = new AuthService();
+
+  if (!authService.user) {
+    authService
+      .signInAnonymously()
+      .subscribe(() => { next(); });
+  } else {
+    next();
+  }
+});
 
 export default router;

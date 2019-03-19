@@ -1,17 +1,18 @@
 import 'assets/main.scss';
 import Vue from 'vue';
-import App from './App.vue';
-import Vuefire from 'vuefire';
+import App from './app.vue';
 import firebase from 'firebase/app';
 import 'firebase/firestore';
+import 'firebase/auth';
 import config from '../config';
 import router from './router';
 
-Vue.use(Vuefire);
-
 firebase.initializeApp(config.firebase);
 
-export const db = firebase.firestore();
+export const storageProvider = firebase.firestore();
+export const authProvider = firebase.auth();
+/* eslint-disable no-new */
+export const eventBus = new Vue();
 
 /* eslint-disable no-new */
 new Vue({

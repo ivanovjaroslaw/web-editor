@@ -3,6 +3,7 @@
 - should we use explicit `lint` task along with `eslint-loader` pre-loader?
 - `devServer.contentBase` looks incorrectly
 - about production with vue - https://vue-loader-v14.vuejs.org/ru/workflow/production.html
+- CopyWebpackPlugin: used context to avoid error of non-existing dir
 
 ## Other
 - eslint and WS config should be synchronized

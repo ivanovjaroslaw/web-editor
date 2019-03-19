@@ -52,7 +52,8 @@ module.exports = {
       inject: true
     }),
     new CopyWebpackPlugin([{
-      from: utils.resolve('static/img'),
+      context: utils.resolve('static/img'),
+      from: '**/*',
       to: utils.resolve('dist/static/img'),
       toType: 'dir'
     }])
