@@ -1,10 +1,9 @@
-'use strict';
-
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const merge = require('webpack-merge');
-const baseConfig = require('./webpack.config.base');
+const utils = require('./utils');
+const configBase = require('./webpack.config.base');
 
-module.exports = merge(baseConfig, {
+const configProd = {
   mode: 'production',
   optimization: {
     splitChunks: {
@@ -30,6 +29,15 @@ module.exports = merge(baseConfig, {
     ]
   },
   plugins: [
-    new MiniCssExtractPlugin({ filename: 'main.css' })
-  ]
-});
+    new MiniCssExtractPlugin({
+      filename: '[name].[contenthash].css',
+      chunkFilename: '[name].[contenthash].css',
+    })
+  ],
+  output: {
+    path: utils.resolve(`dist/prod`),
+    publicPath: '/'
+  }
+};
+
+module.exports = merge(configBase, configProd);

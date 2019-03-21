@@ -21,6 +21,7 @@
 </template>
 
 <script>
+  import Vue from 'vue';
   import DocumentResourceService from '../services/document.resource.service';
   import EditableTextareaComponent from '../components/editable-textarea.component';
   import { debounce } from 'lodash';
@@ -29,7 +30,7 @@
     saveDebounceDelay: 500
   };
 
-  export default {
+  export default Vue.extend({
     name: 'DocumentEditComponent',
     components: { EditableTextareaComponent },
     props: {
@@ -75,7 +76,7 @@
           .subscribe();
       }
     }
-  };
+  });
 </script>
 
 <style lang="scss" scoped>

@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "sourceMap": true,
+    "strict": true,
+    "module": "es6",
+    "moduleResolution": "node",
+    "jsx": "react",
+    "allowJs": true,
+    "target": "es5",
+    "outDir": "./dist/",
+    "plugins": [{"name": "typescript-tslint-plugin"}]
+  },
+  "include": ["src/**/*"]
+}

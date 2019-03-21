@@ -2,9 +2,9 @@ const firebase = {
   apiKey: '',
   authDomain: '',
   databaseURL: '',
+  messagingSenderId: '',
   projectId: '',
   storageBucket: '',
-  messagingSenderId: ''
 };
 
 const config = { firebase };

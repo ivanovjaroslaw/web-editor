@@ -17,10 +17,11 @@
 </template>
 
 <script>
+  import Vue from 'vue';
   import MessageResourceService from '../services/message.resource.service';
   import { eventBus } from '../index';
 
-  export default {
+  export default Vue.extend({
     name: 'ChatMessagesComponent',
     props: {
       documentId: {
@@ -51,7 +52,7 @@
           });
       }
     }
-  };
+  });
 </script>
 
 <style scoped>

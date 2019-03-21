@@ -1,39 +1,38 @@
-import { authProvider } from '../index';
-import SingletonMixin from '../utils/singleton.mixin';
-import BaseService from '../utils/base.service';
 import { from } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { authProvider } from '../index';
+import BaseService from '../utils/base.service';
 
-export default class AuthService extends SingletonMixin(BaseService) {
-  authStateChanged = null;
-  user = null;
+export default class AuthService extends BaseService {
+  public user: any = null;
+  private _authStateChanged: any = null;
 
-  constructor () {
+  constructor() {
     super();
 
     this._setHandlers();
   }
 
-  signInAnonymously () {
+  public signInAnonymously() {
     const promise = authProvider
       .signInAnonymously()
       .catch(this._catchError);
 
     return from(promise)
       .pipe(
-        catchError(this._catchError)
+        catchError(this._catchError),
       );
   }
 
-  _setHandlers () {
-    this.authStateChanged = authProvider
+  private _setHandlers() {
+    this._authStateChanged = authProvider
       .onAuthStateChanged(
         (user) => {
           this.user = user;
         },
         (error) => {
           this._catchError(error);
-        }
+        },
       );
   }
 }

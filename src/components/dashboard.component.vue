@@ -17,9 +17,10 @@
 </template>
 
 <script>
+  import Vue from 'vue';
   import DocumentResourceService from '../services/document.resource.service';
 
-  export default {
+  export default Vue.extend({
     name: 'DashboardComponent',
     data () {
       return {
@@ -41,7 +42,7 @@
           });
       }
     }
-  };
+  });
 </script>
 
 <style scoped></style>

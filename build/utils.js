@@ -1,13 +1,13 @@
-'use strict';
+const nodePath = require('path');
 
-const path = require('path');
-
-module.exports = {
+const utils = {
     resolve: function (dir) {
-        return path.join(__dirname, '..', dir);
+        return nodePath.join(__dirname, '..', dir);
     },
-    assetsPath: function (_path) {
+    assetsPath: function (path) {
         const assetsSubDirectory = 'static';
-        return path.posix.join(assetsSubDirectory, _path);
+        return nodePath.posix.join(assetsSubDirectory, path);
     }
-}
+};
+
+module.exports = utils;

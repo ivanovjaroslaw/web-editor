@@ -10,10 +10,11 @@
 </template>
 
 <script>
+  import Vue from 'vue';
   import DocumentEditComponent from './document-edit.component';
   import ChatComponent from './chat.component';
 
-  export default {
+  export default Vue.extend({
     name: 'DocumentComponent',
     components: { DocumentEditComponent, ChatComponent },
     data () {
@@ -31,7 +32,7 @@
     },
     methods: {
     }
-  };
+  });
 </script>
 
 <style lang="scss" scoped>

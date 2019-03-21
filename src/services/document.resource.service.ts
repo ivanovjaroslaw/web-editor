@@ -1,28 +1,27 @@
-import { storageProvider } from '../index';
-import SingletonMixin from '../utils/singleton.mixin';
-import BaseService from '../utils/base.service';
 import { from } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { storageProvider } from '../index';
+import BaseService from '../utils/base.service';
 
-export default class DocumentResourceService extends SingletonMixin(BaseService) {
-  static key = 'documents';
+export default class DocumentResourceService extends BaseService {
+  private static _key: string = 'documents';
 
-  get resultEndpoint () {
-    return DocumentResourceService.key;
+  public get resultEndpoint() {
+    return DocumentResourceService._key;
   }
 
-  add (data) {
+  public add(data: any) {
     const promise = storageProvider
       .collection(this.resultEndpoint)
       .add(data);
 
     return from(promise)
       .pipe(
-        catchError(this._catchError)
+        catchError(this._catchError),
       );
   }
 
-  save (id, data) {
+  public save(id: string, data: any) {
     if (!id) {
       throw new Error('Id is missed for saving data');
     }
@@ -34,11 +33,11 @@ export default class DocumentResourceService extends SingletonMixin(BaseService)
 
     return from(promise)
       .pipe(
-        catchError(this._catchError)
+        catchError(this._catchError),
       );
   }
 
-  getItem (id) {
+  public getItem(id: string) {
     const promise = storageProvider
       .collection(this.resultEndpoint)
       .doc(id)
@@ -46,7 +45,7 @@ export default class DocumentResourceService extends SingletonMixin(BaseService)
 
     return from(promise)
       .pipe(
-        catchError(this._catchError)
+        catchError(this._catchError),
       );
   }
 }

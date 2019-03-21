@@ -26,6 +26,7 @@
 </template>
 
 <script>
+  import Vue from 'vue';
   import MessageResourceService from '../services/message.resource.service';
   import EditableTextareaComponent from '../components/editable-textarea.component';
   import ChatMessagesComponent from '../components/chat-messages.component';
@@ -36,7 +37,7 @@
     saveDebounceDelay: 500
   };
 
-  export default {
+  export default Vue.extend({
     name: 'ChatComponent',
     components: { EditableTextareaComponent, ChatMessagesComponent },
     props: {
@@ -87,7 +88,7 @@
         eventBus.$emit('updateChatScope');
       }
     }
-  };
+  });
 </script>
 
 <style lang="scss" scoped>

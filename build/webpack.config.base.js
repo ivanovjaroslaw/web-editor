@@ -1,47 +1,42 @@
-'use strict';
-
 const { VueLoaderPlugin } = require('vue-loader');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
-
 const utils = require('./utils');
 
-module.exports = {
+const configBase = {
+  entry: './src/index.ts',
   resolve: {
-    extensions: ['.js', '.vue', '.json'],
+    extensions: ['.ts', '.js', '.vue', '.json'],
     alias: {
       'assets': utils.resolve('assets'),
       'pages': utils.resolve('src/pages'),
-      'static': utils.resolve('static'),
-      'components': utils.resolve('src/components')
+      'components': utils.resolve('src/components'),
+      'dist': utils.resolve('dist'),
+      'vue$': 'vue/dist/vue.runtime.esm.js'
     }
   },
   module: {
+    noParse: /.*tsconfig\.json$/,
     rules: [
-      { test: /\.(js|vue)$/, use: 'eslint-loader', enforce: 'pre'},
+      {
+        test: /\.ts$/,
+        exclude: [/node_modules/, /(\.d\.ts)/],
+        use: 'tslint-loader',
+        enforce: 'pre'
+      },
       { test: /\.vue$/, use: 'vue-loader' },
-      { test: /\.js$/, use: 'babel-loader' },
       {
-        test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
+        test: /\.ts$/,
+        exclude: [/node_modules/, /(\.d\.ts)/],
         use: {
-          loader: 'url-loader',
-          options: { limit: 10000, name: utils.assetsPath('img/[name].[hash:7].[ext]') }
+          loader: 'ts-loader',
+          options: {
+            configFile: utils.resolve('tsconfig.json'),
+            transpileOnly: true,
+            appendTsSuffixTo: [/\.vue$/]
+          }
         }
       },
-      {
-        test: /\.(mp4|webm|ogg|mp3|wav|flac|aac)(\?.*)?$/,
-        use: {
-          loader: 'url-loader',
-          options: { limit: 10000, name: utils.assetsPath('media/[name].[hash:7].[ext]') }
-        }
-      },
-      {
-        test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
-        use: {
-          loader: 'url-loader',
-          options: { limit: 10000, name: utils.assetsPath('fonts/[name].[hash:7].[ext]') }
-        }
-      },
+      { test: /\.js$/, use: 'babel-loader' }
     ]
   },
   plugins: [
@@ -50,12 +45,12 @@ module.exports = {
       filename: 'index.html',
       template: 'index.html',
       inject: true
-    }),
-    new CopyWebpackPlugin([{
-      context: utils.resolve('static/img'),
-      from: '**/*',
-      to: utils.resolve('dist/static/img'),
-      toType: 'dir'
-    }])
-  ]
+    })
+  ],
+  output: {
+    path: utils.resolve(`dist`),
+    publicPath: '/'
+  }
 };
+
+module.exports = configBase;

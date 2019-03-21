@@ -7,7 +7,9 @@
 </template>
 
 <script>
-  export default {
+  import Vue from 'vue';
+
+  export default Vue.extend({
     name: 'EditableTextareaComponent',
     props: {
       content: {
@@ -23,7 +25,7 @@
         this.$emit('onUpdate', event.target.innerText);
       }
     }
-  };
+  });
 </script>
 
 <style lang="scss" scoped>
