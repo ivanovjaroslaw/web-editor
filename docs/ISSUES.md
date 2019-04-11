@@ -8,6 +8,9 @@
     - bug with broken variable projection after complete removing of the string
 - Jest warning: "[Vue warn]: Cannot find element: #app"
     - just annoying stuff in console because the actual return result is successful
+- Travis error while build:
+    - "Cannot find module '../../src/App' from 'app.component.spec.js'"
+    - can't get it, because locally all works fine
 ## Other
 - SCSS shared global variables support
     - WebStorm can not resolve webpack alias for scss files
