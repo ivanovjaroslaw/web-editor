@@ -1,26 +1,21 @@
-'use strict';
-
 const { VueLoaderPlugin } = require('vue-loader');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-
 const utils = require('./utils');
 
-module.exports = {
+const configBase = {
   resolve: {
     extensions: ['.js', '.vue', '.json'],
     alias: {
       'assets': utils.resolve('assets'),
-      'pages': utils.resolve('src/pages'),
-      'static': utils.resolve('static'),
-      'components': utils.resolve('src/components')
+      'vue$': 'vue/dist/vue.esm.js'
     }
   },
   module: {
     rules: [
       { test: /\.(js|vue)$/, use: 'eslint-loader', enforce: 'pre'},
       { test: /\.vue$/, use: 'vue-loader' },
-      { test: /\.js$/, use: 'babel-loader' },
+      { test: /\.js$/, use: 'babel-loader', include: utils.resolve('src') },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
         use: {
@@ -44,6 +39,9 @@ module.exports = {
       },
     ]
   },
+  output: {
+    publicPath: '/'
+  },
   plugins: [
     new VueLoaderPlugin(),
     new HtmlWebpackPlugin({
@@ -52,9 +50,12 @@ module.exports = {
       inject: true
     }),
     new CopyWebpackPlugin([{
-      from: utils.resolve('static/img'),
+      context: utils.resolve('static/img'),
+      from: '**/*',
       to: utils.resolve('dist/static/img'),
       toType: 'dir'
     }])
   ]
 };
+
+module.exports = configBase;

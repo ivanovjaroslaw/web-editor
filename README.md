@@ -1,74 +1,61 @@
 # UI WebEditor
 
-## Preparation
-- `npm install`
+This application provides FE part of shared document online editor system.
 
-## Build
+BE subsystem is omitted for the simplicity and just [Firebase](https://firebase.google.com/) is used.
 
-- `npm run dev` produces starting of server
-- `npm run build` produces generation of `dist/` directory
+For random name generation [RandomUser](https://randomuser.me/) public API is used. 
 
-# Under the hood
+## Warning
+The app is implemented as part of individual education track in web technologies.
 
-## Dependencies
+It generally covers only specified stack of technologies with confirmed level of depth.
 
-- Vue: 
-    - `"vue"` target JS framework
-    - `"vue-router"` routing plugin for target JS framework
-- Webpack:
-    - General:
-        - `webpack` bundler
-        - `webpack-cli` *looks unnecessary*
-        - `webpack-dev-server` used as built-in server while dev
-        - `html-webpack-plugin` allows dynamic injection of script into HTML for HMR
-    - CSS
-        - `style-loader` adds CSS to the DOM by injecting \<style\>
-        - `css-loader` interprets css import in js
-    - SCSS (only for explicit usage via import):
-        - `"node-sass": "~4.9.0"`
-        - `"sass-loader": "~7.0.0"`
-    - Vue:
-        - `vue-loader` supports all stuff for vue file processing
-        - `vue-template-compiler` peerDependency for `vue-loader`
-    - Babel:
-        - `"babel-core": "~6.26.0"`
-        - `"babel-loader": "~7.1.0"`
-        - `"babel-preset-env": "~1.7.0"`
-    - Lint:
-        - `eslint`
-        - `eslint-plugin-import`
-        - `eslint-plugin-node`
-        - `eslint-plugin-promise`
-        - `eslint-plugin-standard`
-        - `eslint-config-standard`
-        - `babel-eslint`
-        - `eslint-plugin-vue`
-        - `eslint-loader` as pre-loader while build
-    - Static Assets:
-        - `copy-webpack-plugin`
-    - Unit Testing:
-        - `jest`
-        - `babel-jest`
-        - `vue-jest`
-        - `jest-serializer-vue`
-        - `@vue/test-utils`
-    - ?:
-        - `mini-css-extract-plugin` 
-            - https://itnext.io/vue-js-and-webpack-4-from-scratch-part-3-3f68d2a3c127
-            - https://github.com/dfcook/vue-webpack4-template
+Future maintenance is not considered.
 
-## Do it right
+## Usage
+Node.js (>= v10.15.1) with NPM should be installed.
 
-### Tools
+Install required dependencies by `npm install` command.
 
-- `npm i package@~version` anyway omits tilde (~) and save caret (^) for `package.json` entry by default
-    - it can be changed by `npm config set save-prefix '~'`
-- `npm outdated` shows difference between local installed package and available new version
-    - `npm update` will update them (but `npm install` won't)
-- `npm audit` show possible vulnerabilities of 3rd party deps
+Add Firebase config into `config/index.js` file according to [Firebase Guide](https://firebase.google.com/docs/web/setup)
 
-## Knowing Issues
+### Tasks
+- `npm run dev:build` build development version
+- `npm run dev:serve` serve development version
+- `npm run prod:build` build production version
+- `npm run prod:serve` serve production version
+- `npm lint` check source code for warnings and errors by [ESLint](https://github.com/eslint/eslint)
+- `npm lint:fix` automatically resolve existing warnings and errors by [ESLint](https://github.com/eslint/eslint)
+- `npm test` launch Unit Tests
 
-### Tools
+Build and serve production version is also provided with [webpack-bundle-analyzer](https://github.com/webpack-contrib/webpack-bundle-analyzer) report.
 
-- SCSS shared global variables support - [https://vue-loader-v14.vuejs.org/ru/configurations/pre-processors.html]
+### Structure
+| Location                  | Purpose   |
+| ---                       | ----      |
+| /assets                   | -         |
+| /build                    | -         |
+| /dist                     | -         |
+| &nbsp;&nbsp; /dev         | -         |
+| &nbsp;&nbsp; /prod        | -         |
+| /docs                     | contains documentation (.md files) about the project |
+| /src                      | -         |
+| &nbsp;&nbsp; /components  | -         |
+| &nbsp;&nbsp; /config      | -         |
+| &nbsp;&nbsp; /router      | -         |
+| &nbsp;&nbsp; /services    | -         |
+| &nbsp;&nbsp; /utils       | -         |
+| &nbsp;&nbsp; /app.vue     | -         |
+| &nbsp;&nbsp; /index.js    | -         |
+| /test                     | -         |
+| .babelrc                  | -         |
+| .eslintignore             | -         |
+| .travis.yml               | -         |
+| index.html                | -         |
+
+### Documentation
+- [Under the Hood](docs/UNDER_THE_HOOD.md) for detailed explanation of architecture and used approaches 
+- [Education](docs/EDUCATION.md) for tracking the coverage of web technologies stack
+- [Issues](docs/ISSUES.md) for knowing problems
+- [Tasks](docs/TASKS.md) for future improvements

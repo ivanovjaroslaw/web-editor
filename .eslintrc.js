@@ -1,7 +1,8 @@
 module.exports = {
   root: true,
   parserOptions: {
-    parser: 'babel-eslint'
+    parser: 'babel-eslint',
+    ecmaVersion: 6
   },
   env: {
     browser: true,
@@ -20,6 +21,18 @@ module.exports = {
   ],
   rules: {
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
-    'semi': ['warn', 'always']
-  }
+    'semi': ['warn', 'always'],
+    'vue/script-indent': ['warn', 2, { 'baseIndent': 1 }],
+    'comma-dangle': ['warn', 'always-multiline'],
+    'no-unused-vars': ['warn'],
+    'spaced-comment': ['warn'],
+  },
+  overrides: [
+    {
+      'files': ['*.vue'],
+      'rules': {
+        'indent': 'off'
+      }
+    }
+  ]
 };

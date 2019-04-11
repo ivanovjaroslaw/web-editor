@@ -4,9 +4,13 @@ const firebase = {
   databaseURL: '',
   projectId: '',
   storageBucket: '',
-  messagingSenderId: ''
+  messagingSenderId: '',
 };
 
-const config = { firebase };
+const form = {
+  inputDebounceInterval: 500,
+};
+
+const config = { firebase, form };
 
 export default config;
