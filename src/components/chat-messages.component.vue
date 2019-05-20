@@ -5,22 +5,29 @@
         v-for="message in messages"
         :key="message.id"
       >
-        <h3 v-if="userNames[message.userUid]">
-          {{ userNames[message.userUid] }}
-        </h3>
+        <div class="mdl-color-text--grey-700">
+          <strong v-if="userNames[message.userUid]">
+            {{ userNames[message.userUid] }}
+          </strong>
+          <small>
+            {{ message.timestamp | formatDate }}
+          </small>
+        </div>
         <p>{{ message.content }}</p>
-        <em>{{ message.timestamp | formatDate }}</em>
       </div>
     </div>
-    <template v-else>
-      <p>Loading...</p>
-    </template>
+    <div
+      v-mdl
+      class="mdl-spinner mdl-js-spinner"
+      :class="{ 'is-active': !messages }"
+    />
   </div>
 </template>
 
 <script>
   import MessageGateway from '../gateways/message.gateway';
   import UserGateway from '../gateways/user.gateway';
+  import { map } from 'rxjs/operators';
 
   export default {
     name: 'ChatMessagesComponent',
@@ -40,6 +47,9 @@
       const documentId = this.documentId;
       MessageGateway
         .listenList({ documentId })
+        .pipe(
+          map(messages => messages.reverse())
+        )
         .subscribe((messages) => {
           this.messages = messages;
         });

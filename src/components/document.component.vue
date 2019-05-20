@@ -1,9 +1,9 @@
 <template>
-  <div class="document">
-    <div class="document-edit-area">
+  <div class="mdl-grid">
+    <div class="mdl-cell mdl-cell--8-col">
       <document-edit-component :document-id="documentId" />
     </div>
-    <div class="chat-area">
+    <div class="mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet">
       <chat-component :document-id="documentId" />
     </div>
   </div>
@@ -35,14 +35,4 @@
 </script>
 
 <style lang="scss" scoped>
-  .document-edit-area {
-    float: left;
-    width: 70%;
-  }
-
-  .chat-area {
-    float: left;
-    margin-left: 5%;
-    width: 25%;
-  }
 </style>

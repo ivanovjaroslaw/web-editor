@@ -1,14 +1,28 @@
 <template>
   <!-- @todo: there is a bug after removing the whole string: 'content' binding will be broken -->
-  <div
-    ref="input"
-    class="textarea"
-    contenteditable
-    @input="update"
-    @blur="preserveSelection"
-    @focus="preserveSelection"
-  >
-    {{ content }}
+  <!-- @todo: there is a bug with Enter that creates new div node -->
+  <div>
+    <div
+      :id="componentUid"
+      ref="input"
+      v-mdl
+      class="textarea mdl-shadow--2dp"
+      contenteditable
+      @keydown.enter="onEnter"
+      @input="update"
+      @blur="preserveSelection"
+      @focus="preserveSelection"
+    >
+      {{ content }}
+    </div>
+    <div
+      v-if="tooltip"
+      v-mdl
+      class="mdl-tooltip"
+      :data-mdl-for="componentUid"
+    >
+      {{ tooltip }}
+    </div>
   </div>
 </template>
 
@@ -20,11 +34,17 @@
         type: String,
         required: true,
       },
+      tooltip: {
+        type: String,
+        required: false,
+        default: '',
+      },
     },
     data () {
       return {
         selectionBaseOffset: null,
         selectionExtentOffset: null,
+        componentUid: null,
       };
     },
     watch: {
@@ -37,6 +57,9 @@
           }
         });
       },
+    },
+    mounted () {
+      this.componentUid = this._uid;
     },
     methods: {
       update (event) {
@@ -86,7 +109,5 @@
 
  .textarea {
      padding: $padding;
-     border: 1px solid $color-border;
-     border-radius: 5px;
  }
 </style>

@@ -1,27 +1,54 @@
 <template>
-  <div class="chat">
-    <div class="title">
+  <div class="mdl-grid">
+    <h4 class="mdl-cell mdl-cell--12-col">
+      Messages
+    </h4>
+    <div class="mdl-cell mdl-cell--12-col title">
       <editable-textarea-component
         v-if="userName"
         :content="userName"
+        :tooltip="'Current Username'"
         @onUpdate="debouncedSaveUserName($event)"
       />
     </div>
-    <div>
-      <chat-messages-component :document-id="documentId" />
+    <div class="mdl-cell mdl-cell--12-col mdl-shadow--2dp">
+      <div class="mdl-grid">
+        <div class="mdl-cell mdl-cell--12-col">
+          <form>
+            <div
+              v-mdl
+              class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"
+            >
+              <input
+                id="document-title"
+                v-model="newMessageContent"
+                type="text"
+                class="mdl-textfield__input"
+              >
+              <label
+                class="mdl-textfield__label"
+                for="document-title"
+              >
+                New Message Content
+              </label>
+            </div>
 
-      <form>
-        <input
-          v-model="newMessageContent"
-          type="text"
-        >
-        <button
-          type="button"
-          @click="submit"
-        >
-          Send
-        </button>
-      </form>
+            <button
+              v-mdl
+              type="button"
+              class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored"
+              @click="submit"
+            >
+              <i class="material-icons">
+                add
+              </i>
+            </button>
+          </form>
+        </div>
+        <div class="mdl-cell mdl-cell--12-col">
+          <chat-messages-component :document-id="documentId" />
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -86,7 +113,6 @@
   @import 'assets/main';
 
   .chat {
-    width: 100%;
 
     .title {
       font-size: 2em;

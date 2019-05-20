@@ -8,17 +8,3 @@ $color-text: #666;
 $color-border: #EEE;
 $padding: 10px;
 $margin-bottom: 10px;
-
-* {
-  box-sizing: border-box;
-}
-
-.full-width {
-  width: 100%;
-}
-.center-content {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: red;
-}

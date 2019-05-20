@@ -1,22 +1,29 @@
 <template>
-  <div class="document">
+  <div class="mdl-grid">
+    <h4 class="mdl-cell mdl-cell--12-col">
+      Document content
+    </h4>
     <template v-if="isLoaded">
-      <div class="title">
+      <div class="mdl-cell mdl-cell--12-col title">
         <editable-textarea-component
           :content="title"
+          :tooltip="'Document Title'"
           @onUpdate="saveTitle($event)"
         />
       </div>
-      <div class="content">
+      <div class="mdl-cell mdl-cell--12-col">
         <editable-textarea-component
           :content="content"
+          :tooltip="'Document Content'"
           @onUpdate="saveContent($event)"
         />
       </div>
     </template>
-    <template v-else>
-      <p>Loading...</p>
-    </template>
+    <div
+      v-mdl
+      class="mdl-spinner mdl-js-spinner"
+      :class="{ 'is-active': !isLoaded }"
+    />
   </div>
 </template>
 
@@ -87,8 +94,6 @@
   @import 'assets/main';
 
   .document {
-    color: $color-text;
-
     .title {
       font-size: 2em;
       margin-bottom: $margin-bottom;

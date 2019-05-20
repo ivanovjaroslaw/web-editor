@@ -1,21 +1,56 @@
 <template>
-  <div class="full-width">
-    <header>
-      <h1>
-        <router-link to="/">
-          UI Web Editor
-        </router-link>
-      </h1>
-      <button
-        class="sign-out-button"
-        type="button"
-        @click="signOut"
-      >
-        Sign Out
-      </button>
-    </header>
+  <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+    <header class="mdl-layout__header">
+      <div class="mdl-layout__header-row">
+        <span class="mdl-layout__title">
+          <router-link to="/">
+            UI Web Editor
+          </router-link>
+        </span>
+        <div class="mdl-layout-spacer" />
+        <button
+          type="button"
+          class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
+          @click="showModal = !showModal"
+        >
+          <i class="material-icons">
+            logout
+          </i>
+        </button>
 
-    <main>
+        <dialog
+          v-mdl
+          v-mdl-modal-show="showModal"
+          class="mdl-dialog"
+        >
+          <h4 class="mdl-dialog__title">
+            Are you sure to log out?
+          </h4>
+          <div class="mdl-dialog__content">
+            <p>
+              This will remove your current nickname and you will not be able to authenticate with same credentials.
+            </p>
+          </div>
+          <div class="mdl-dialog__actions">
+            <button
+              type="button"
+              class="mdl-button"
+              @click="signOut()"
+            >
+              Agree
+            </button>
+            <button
+              type="button"
+              class="mdl-button"
+              @click="showModal = !showModal"
+            >
+              Disagree
+            </button>
+          </div>
+        </dialog>
+      </div>
+    </header>
+    <main class="mdl-layout__content">
       <router-view />
     </main>
   </div>
@@ -27,7 +62,9 @@
   export default {
     components: {},
     data () {
-      return {};
+      return {
+        showModal: false,
+      };
     },
     created () {},
     methods: {
@@ -37,6 +74,7 @@
             null,
             (error) => { throw new Error(error); },
             () => {
+              this.showModal = !this.showModal;
               this.$router.push('/');
             },
           );
@@ -47,18 +85,4 @@
 
 <style lang="scss" scoped>
   @import 'assets/main';
-
-  header {
-    text-align: center;
-
-    h1 * {
-      color: $color-main;
-    }
-
-    .sign-out-button {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-    }
-  }
 </style>

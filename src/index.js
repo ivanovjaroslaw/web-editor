@@ -1,4 +1,3 @@
-import 'assets/main.scss';
 import Vue from 'vue';
 import App from './app.vue';
 import firebase from 'firebase/app';
@@ -8,7 +7,12 @@ import 'firebase/auth';
 import config from './config';
 import router from './router';
 import ApiAuthAdapter from './adapters/api-auth.adapter';
-import './utils/filters';
+import vueFilters from './plugins/filters';
+import vueDirectives from './plugins/directives';
+import 'material-design-lite/material.js';
+
+import 'material-design-lite/material.css';
+import 'assets/main.scss';
 
 firebase.initializeApp(config.firebase);
 
@@ -17,6 +21,14 @@ export const ApiResourceProviderNamespace = firebase.database;
 
 export const ApiAuthAdapterInstance = new ApiAuthAdapter(firebase.auth());
 ApiAuthAdapterInstance.setHandlers();
+
+for (let key in vueFilters) {
+  Vue.filter(key, vueFilters[key]);
+}
+
+for (let key in vueDirectives) {
+  Vue.directive(key, vueDirectives[key]);
+}
 
 /* eslint-disable no-new */
 new Vue({

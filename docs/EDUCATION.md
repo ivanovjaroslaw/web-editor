@@ -17,4 +17,4 @@
 * Travis:
     * simple config
 * Material:
-    * (!) uncovered
+    * used [MDL](https://getmdl.io/)
